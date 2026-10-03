@@ -1,0 +1,2 @@
+This is where you will keep the original downloaded dataset 'export.csv'
+- make sure this file is in your .gitignore

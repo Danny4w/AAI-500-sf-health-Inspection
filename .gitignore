@@ -1,0 +1,13 @@
+data/raw-data/*.csv
+data/cleaned-data/*.csv
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pkl
+*.joblib
+.DS_Store
+.vscode/
+
+!data/outputs/*.csv
+!placeholder.txt

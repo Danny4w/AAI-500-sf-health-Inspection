@@ -1,0 +1,1 @@
+This folder holds exported charts and visuals generated during EDA and modeling.
