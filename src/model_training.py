@@ -1,7 +1,6 @@
 # Read 'data/processed/cleaned_data.csv' and split into X (predictors) and y (target).
 
-# Perform an 80/20 train/test split with stratify=y and random_state=42.
-
+# Perform an 80/20 train/test split with stratify=y and random_state=any.
 
 # Train the following Models
 # -  Logistic Regression(class_weight='balanced')
