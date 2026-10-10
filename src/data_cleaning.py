@@ -24,7 +24,7 @@ def load_and_filter(file_path: str) -> pd.DataFrame:
 # Select which features to include, clean formatting, impute missing values
 def feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
     # Features which have potential to be risk predictors for passing or failing inspection
-    keep_features = ['target', 'permit_type', 'analysis_neighborhood', 'inspection_frequency_type', 'inspection_type', 'total_time']
+    keep_features = ['target', 'permit_type', 'analysis_neighborhood', 'inspection_frequency_type', 'inspection_type']
     df_keep = df[keep_features].copy()    
 
     # Helper function to help categorize the many kinds of 'permit_type'
@@ -49,12 +49,6 @@ def feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
 
     # Clean the 'permit_type' column by categorizing its values
     df_keep["permit_type"] = df_keep["permit_type"].apply(categorize_permit)
-
-    # Clean total_time column:convert to float, take absolute values and impute missing values with the median
-    df_keep['total_time'] = pd.to_numeric(df_keep['total_time'], errors='coerce')
-    df_keep['total_time'] = df_keep['total_time'].abs()
-    median_total_time = df_keep['total_time'].median()
-    df_keep['total_time'] = df_keep['total_time'].fillna(median_total_time)
 
     # Clean the categorical features and fill missing values with 'Unknown'
     categorical_features = ['permit_type', 'analysis_neighborhood', 'inspection_frequency_type', 'inspection_type']
