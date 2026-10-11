@@ -1,6 +1,8 @@
 import os
 import joblib
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
@@ -80,9 +82,56 @@ def model_evaluation(predictions, y_test):
     return metrics_df
 
 
+def save_best_model(trained_models, metrics_df, X_train):
+    # Automatically select the bet model based on PR AUC
+    best_auc = metrics_df.loc[metrics_df['pr_auc'].idxmax()]
+    best_model = best_auc['model']
+    print(f"Best model chosen based on PR AUC: {best_model}")
+
+    best_pipeline = trained_models[best_model]
+
+    # Save the best model to 'models' directory
+    models_dir = 'models'
+    os.makedirs(models_dir, exist_ok=True)
+    model_path = os.path.join(models_dir, 'best_model.pkl')
+    joblib.dump(best_pipeline, model_path)
+    print(f"Best model saved to {model_path}")
+
+    # Extract and Plot Logistic Regression Coefficients coefficients (weights)
+    classifier = best_pipeline.named_steps['classifier']
+    if hasattr(classifier, 'coef_'):
+        coefficients = np.abs(classifier.coef_[0])
+        feature_names = X_train.columns
+
+        coef_df = pd.DataFrame({
+            'Feature': feature_names,
+            'Importance': coefficients
+        }).sort_values(by='Importance', ascending=False)
+
+        top_features = coef_df.head(15).sort_values(by='Importance', ascending=True)\
+
+        # Plotting
+        plt.figure(figsize=(10, 6))
+        plt.barh(top_features['Feature'], top_features['Importance'], color='teal')
+        plt.xlabel('Importance (coefficient magnitude)', fontsize=12)
+        plt.ylabel('Features', fontsize=12)
+        plt.title(f'Top 15 Feature Importances ({best_model})', fontsize=14, fontweight='bold')
+        plt.grid(axis='x', linestyle='--', alpha=0.7)
+        plt.tight_layout()
+
+        figure_dir = 'figures'
+        os.makedirs(figure_dir, exist_ok=True)
+        figure_path = os.path.join(figure_dir, 'feature_importance.png')
+        plt.savefig(figure_path)
+        print(f"Feature importance plot saved to {figure_path}")
+        plt.close()
+
+
+
 if __name__ == "__main__":
     file_path = os.path.join('data', 'cleaned-data', 'cleaned_data_modeling.csv')
     X_train, X_test, y_train, y_test = read_and_split_data(file_path)
     trained_models, predictions = model_training(X_train, y_train, X_test)
     metrics_df = model_evaluation(predictions, y_test)
+    save_best_model(trained_models, metrics_df, X_train)
 
