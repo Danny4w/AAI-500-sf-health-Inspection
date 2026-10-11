@@ -388,7 +388,7 @@ def inspection_type_chart(df):
 # ---------------------------------------------------------
 
 def main():
-    # Read the cleaned inspection dataset
+    
     df = pd.read_csv(DATA_PATH)
 
     # Make sure the required columns exist
