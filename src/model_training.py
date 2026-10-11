@@ -49,18 +49,40 @@ def model_training(X_train, y_train, X_test):
 
     return trained_models, predictions
 
+def model_evaluation(predictions, y_test):
+    evaluation_results = []
 
+    # Loop through eah models saved predictions
+    for name, preds in predictions.items():
+        y_pred = preds['y_pred']
+        y_prob = preds['y_prob']
+        
+        # Calculate evaluation metrics
+        recall = recall_score(y_test, y_pred, zero_division=0)
+        precision = precision_score(y_test, y_pred, zero_division=0)
+        pr_auc = average_precision_score(y_test, y_prob)
+
+        evaluation_results.append({
+            'model': name,
+            'recall': round(recall, 3),
+            'precision': round(precision, 3),
+            'pr_auc': round(pr_auc, 3)
+        })
+
+    # Convert evaluation results to a DataFrame 
+    metrics_df = pd.DataFrame(evaluation_results)
+    print("\n" + "="*45)
+    print("         MODEL PERFORMANCE COMPARISON        ")
+    print("="*45)
+    print(metrics_df.to_string(index=False))
+    print("="*45)
+
+    return metrics_df
 
 
 if __name__ == "__main__":
     file_path = os.path.join('data', 'cleaned-data', 'cleaned_data_modeling.csv')
     X_train, X_test, y_train, y_test = read_and_split_data(file_path)
     trained_models, predictions = model_training(X_train, y_train, X_test)
+    metrics_df = model_evaluation(predictions, y_test)
 
-
-
-# Calculate Accuracy, Precision, Recall (Sensitivity), and ROC-AUC on test set for each model.
-
-# Extract feature importance weights from the best model and export plot to 'figures/feature_importance.png'.
-
-# Save trained model artifact to disk using joblib.dump(model, 'models/best_health_model.pkl').
