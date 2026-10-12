@@ -71,6 +71,9 @@ def model_evaluation(predictions, y_test):
             'pr_auc': round(pr_auc, 3)
         })
 
+        print(f"\n--- Classification Report: {name} ---")
+        print(classification_report(y_test, y_pred, zero_division=0))
+
     # Convert evaluation results to a DataFrame 
     metrics_df = pd.DataFrame(evaluation_results)
     print("\n" + "="*45)
