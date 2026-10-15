@@ -1,0 +1,21 @@
+inspection_id,neighborhood,permit_type,inspection_type,risk_score,priority
+1,North Beach,Restaurant,Routine,80.11,High
+2,Chinatown,Restaurant,Routine,79.81,High
+3,Chinatown,Restaurant,Routine,68.22,High
+4,Castro/Upper Market,Restaurant,Routine,68.18,High
+5,Sunset/Parkside,Restaurant,Reinspection,64.2,High
+6,Mission,Restaurant,Reinspection,63.93,High
+7,Financial District/South Beach,Restaurant,Routine,49.14,Medium
+8,Chinatown,Retail Market,Reinspection,47.22,Medium
+9,Financial District/South Beach,Retail Market,Routine,44.62,Medium
+10,Mission,Other,Reinspection,35.22,Medium
+11,Mission Bay,Restaurant,Unknown,34.11,Medium
+12,Mission Bay,Other,Routine,33.39,Medium
+13,Inner Richmond,Restaurant,Unknown,23.48,Low
+14,North Beach,Reference/Other,Unknown,18.28,Low
+15,Mission,Restaurant,New Ownership (R),10.53,Low
+16,Mission,Cafeteria,Reinspection,8.8,Low
+17,Financial District/South Beach,Restaurant,New Ownership (R),5.58,Low
+18,Mission,Other,New Ownership (I),2.51,Low
+19,Reference/Other,Other,New Ownership (R),2.0,Low
+20,Unknown,Mobile Food,New Ownership (R),1.86,Low
