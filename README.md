@@ -29,6 +29,7 @@ AAI-500-sf-health-Inspection/
 │       └── (supporting outputs if generated)
 ├── figures/
 │   └── feature_importance.png
+│   └── [6 EDA visualizations]
 ├── outputs/
 │   └── inspection_priorities.csv
 ├── src/
@@ -48,7 +49,7 @@ AAI-500-sf-health-Inspection/
 The project uses San Francisco health inspection data stored in the `data/raw-data/` folder. The data is filtered to remove rows missing the `facility_rating_status` field and transformed into a binary target:
 
 - `0` = Pass
-- `1` = Fail
+- `1` = Fail 
 
 Key features include:
 
