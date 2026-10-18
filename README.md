@@ -117,6 +117,7 @@ The project produces the following artifacts:
 - `figures/feature_importance.png` — feature importance visualization
 - `outputs/inspection_priorities.csv` — simulated inspection priority rankings
 - `models/best_model.pkl` — trained classification model
+- `figures/` - contains 6 EDA visualizations
 
 ## Dependencies
 
